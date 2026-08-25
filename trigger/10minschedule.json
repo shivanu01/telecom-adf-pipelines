@@ -2,7 +2,7 @@
 	"name": "10minschedule",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -14,9 +14,9 @@
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
-				"frequency": "Minute",
-				"interval": 5,
-				"startTime": "2026-08-25T11:30:00",
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2026-08-25T13:15:00",
 				"timeZone": "India Standard Time"
 			}
 		}
