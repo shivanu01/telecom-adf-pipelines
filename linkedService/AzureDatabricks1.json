@@ -1,0 +1,14 @@
+{
+	"name": "AzureDatabricks1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-7405605982410060.0.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/017926ad-f927-4cea-9719-313ec5b9b8be/resourceGroups/rg-telecom/providers/Microsoft.Databricks/workspaces/telecomdatabricksdev",
+			"existingClusterId": "0824-151935-nduu78gr"
+		}
+	}
+}

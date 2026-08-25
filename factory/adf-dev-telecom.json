@@ -1,0 +1,15 @@
+{
+	"name": "adf-dev-telecom",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "05a3382f-0f2e-464b-b143-bec805c951e4",
+		"tenantId": "dcc9d2aa-c04d-45e2-9b95-1d9a99d97412"
+	}
+}

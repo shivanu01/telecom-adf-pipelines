@@ -1,0 +1,151 @@
+{
+	"name": "ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "config_lookup",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "bronze_ingestion",
+				"type": "DatabricksJob",
+				"dependsOn": [
+					{
+						"activity": "config_lookup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"jobId": "552761056684134",
+					"jobParameters": {
+						"env": {
+							"value": "@activity('Lookup1').output.firstRow.env",
+							"type": "Expression"
+						},
+						"market": {
+							"value": "@activity('Lookup1').output.firstRow.market[0]",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "silver_execution",
+				"type": "DatabricksJob",
+				"dependsOn": [
+					{
+						"activity": "bronze_ingestion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"jobId": "650660766907664",
+					"jobParameters": {
+						"env": {
+							"value": "@activity('Lookup1').output.firstRow.env",
+							"type": "Expression"
+						},
+						"market": {
+							"value": "@activity('Lookup1').output.firstRow.market[0]",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "gold_Execute",
+				"type": "DatabricksJob",
+				"dependsOn": [
+					{
+						"activity": "silver_execution",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"jobId": "692780955376986",
+					"jobParameters": {
+						"env": {
+							"value": "@activity('Lookup1').output.firstRow.env",
+							"type": "Expression"
+						},
+						"market": {
+							"value": "@activity('Lookup1').output.firstRow.market[0]",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-08-25T06:55:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
