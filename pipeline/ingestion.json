@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "config_lookup",
+				"name": "config_lookup_for_env_and_market",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -37,7 +37,7 @@
 				"type": "DatabricksJob",
 				"dependsOn": [
 					{
-						"activity": "config_lookup",
+						"activity": "config_lookup_for_env_and_market",
 						"dependencyConditions": [
 							"Succeeded"
 						]
